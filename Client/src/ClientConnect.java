@@ -26,7 +26,7 @@ class ClientConnect {
             out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             new ReadMsg().start();
             new WriteMsg().start();
-        } catch (IOException e) {
+        } catch (Exception e) {
             ClientConnect.this.downService();
         }
     }
@@ -86,6 +86,11 @@ class Client {
         Scanner scanner = new Scanner(System.in);
         String IPAddress = scanner.nextLine();
         int port = 8080;
-        new ClientConnect(IPAddress, port);
+        try {
+            new ClientConnect(IPAddress, port);
+        } catch (Exception e) {
+            System.err.println("Сервер не запущен");
+        }
+
     }
 }

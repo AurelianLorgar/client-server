@@ -33,7 +33,7 @@ class ServerConnect extends Thread {
 
     private void send(String message) {
         try {
-            out.write("Длина отправленного сообщения " + message.length() +  " символ(ов) \n");
+            out.write("Длина отправленного сообщения " + message.length() +  " символ(а/ов) \n");
             out.flush();
         } catch (IOException ignored) {}
     }
