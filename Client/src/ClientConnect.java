@@ -44,11 +44,11 @@ class ClientConnect {
     private class ReadMsg extends Thread {
         @Override
         public void run() {
-            String str;
+            String message;
             try {
                 while (true) {
-                    str = in.readLine(); // ждем сообщения с сервера
-                    System.out.println(str); // пишем сообщение с сервера на консоль
+                    message = in.readLine(); // ждем сообщения с сервера
+                    System.out.println(message); // пишем сообщение с сервера на консоль
                 }
             } catch (IOException e) {
                 ClientConnect.this.downService();
@@ -60,15 +60,15 @@ class ClientConnect {
         @Override
         public void run() {
             while (true) {
-                String userWord;
+                String message;
                 try {
-                    userWord = inputUser.readLine(); // сообщения с консоли
-                    if (userWord.equals("close_connect")) {
+                    message = inputUser.readLine(); // сообщения с консоли
+                    if (message.equals("close_connect")) {
                         out.write("close_connect" + "\n");
                         ClientConnect.this.downService();
                         break;
                     } else {
-                        out.write(userWord + "\n"); // отправляем на сервер
+                        out.write(message + "\n"); // отправляем на сервер
                     }
                     out.flush(); // чистим
                 } catch (IOException e) {

@@ -3,8 +3,7 @@ import java.net.*;
 
 class ServerConnect extends Thread {
 
-    private Socket socket; // сокет, через который сервер общается с клиентом,
-    // кроме него - клиент и сервер никак не связаны
+    private Socket socket;
     private BufferedReader in; // поток чтения из сокета
     private BufferedWriter out; // поток завписи в сокет
 
@@ -17,24 +16,18 @@ class ServerConnect extends Thread {
 
     @Override
     public void run() {
-        String word;
-        try {
-            word = in.readLine();
-            out.write(word + "\n");
-            out.flush();
-        } catch (IOException ignored) {
-        }
+        String message;
         try {
             while (true) {
-                word = in.readLine();
-                if (word.equals("stop")) {
+                message = in.readLine();
+                if (message.equals("close_connect")) {
                     break; // если пришла пустая строка - выходим из цикла прослушки
                 }
-                System.out.println("Message: " + word);
-                Server.serverConnect.send(word);
+                System.out.println("Сообщение: " + message);
+                Server.serverConnect.send(message);
             }
-        } catch (IOException ignored) {
-
+        } catch (Exception e) {
+            System.err.println("Клиент отключился");
         }
     }
 
